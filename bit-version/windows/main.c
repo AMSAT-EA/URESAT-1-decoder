@@ -62,7 +62,7 @@ int main(int argc, char argv[]) {
         printf("*    GENESIS-U (URESAT) Telemetry Decoder    *\n");
         printf("*        AMSAT-EA - Free distribution        *\n");
         printf("*                                            *\n");
-        printf("*     v1.21 Last compilation : %10s   *\n",__DATE__);
+        printf("*     v1.22 Last compilation : %10s   *\n",__DATE__);
         printf("*                                            *\n");
 	printf("**********************************************\n");
 	printf("\n");
@@ -82,7 +82,7 @@ int main(int argc, char argv[]) {
 
 uint8_t telemetry_packet_size(int tipo_paquete) {
 
-	uint8_t bytes_utiles[] = { 8, 26, 13, 26, 45, 33, 135, 67, 31, 123, 11, 45 };
+	uint8_t bytes_utiles[] = { 8, 26, 13, 26, 45, 33, 135, 67, 28, 123, 11, 45 };
 
 	/*
 
