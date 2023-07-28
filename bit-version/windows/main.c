@@ -1,11 +1,24 @@
-// recibo 0/1 en bruto, busco sync y decodifico
-// joe main.c;rm -f tlmrx32; cc -o tlmrx32 *.c
+/*************************************************************************************/
+/*                                                                                   */
+/* License information / Informacion de licencia                                     */
+/*                                                                                   */
+/* Todos los contenidos de la web de AMSAT EA se distribuyen                         */
+/* bajo licencia Creative Commons CC BY 4.0 Internacional                            */
+/* (distribución, modificacion u y uso libre mientras se cite AMSAT EA como fuente). */
+/*                                                                                   */
+/* All the contents of the AMSAT EA website are distributed                          */
+/*  under a Creative Commons CC BY 4.0 International license                         */
+/* (free distribution, modification and use crediting AMSAT EA as the source).       */
+/*                                                                                   */
+/* AMSAT EA 2023                                                                     */
+/* https://www.amsat-ea.org/proyectos/                                               */
+/*                                                                                   */
+/*************************************************************************************/
 
 #include <string.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <time.h>
-#include <termios.h>  //termios, TCSANOW, ECHO, ICANON
 #include <unistd.h>   //STDIN_FILENO
 #include <math.h>
 #include <stdio.h>
@@ -36,7 +49,7 @@ char* overflying(double lat, double lon);
 FILE *f;
 
 
-void main(int argc, char argv[]) {
+int main(int argc, char argv[]) {
 
 	time_t t = time(NULL);
   	struct tm tm = *localtime(&t);
@@ -58,6 +71,8 @@ void main(int argc, char argv[]) {
 	printf("%s Running...", fecha);
 
 	procesar();
+
+	return 0;
 
 }
 
@@ -899,13 +914,6 @@ void procesar(void) {
 
    uint8_t current_byte = 0;
 
-        static struct termios oldt, newt;
-
-        tcgetattr( STDIN_FILENO, &oldt);
-        newt = oldt;
-
-        newt.c_lflag &= ~(ICANON);
-
 	char input;
 
 	memset(fecha, 0, sizeof(fecha));
@@ -934,12 +942,8 @@ void procesar(void) {
 	   //miro si trabajo
 	   //{static long xx=0,t;if(++xx==3000){xx=0;t=time(0);fprintf(stderr,"!! TM time=%ld\n",t);}}
 
-       	   tcsetattr( STDIN_FILENO, TCSANOW, &newt);
-
 	   input = getchar();
 	   if(input=='x')exit(0); //alonso junio23
-
-           tcsetattr( STDIN_FILENO, TCSANOW, &oldt);
 
 	   t = time(NULL);
 	   struct tm dateend = *localtime(&t);
